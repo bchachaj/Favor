@@ -2,6 +2,7 @@ import requests.auth
 import requests
 import sys
 import os
+import json
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -12,6 +13,7 @@ username = os.getenv('username')
 password = os.getenv('password')
 user_agent = os.getenv('user_agent')
 
+
 saved_content_endpoint = (
     f"https://oauth.reddit.com/user/{username}/saved"
 )
@@ -19,16 +21,27 @@ saved_content_endpoint = (
 
 def main():
     access_token = reddit_request_token()
-    user_saved_posts = reddit_request_data(access_token)
-    print(user_saved_posts)
+    saved_posts = reddit_request_data(access_token)
+    # print(saved_posts['data'])
+    json_res = json.dumps(saved_posts, indent=2)
+    print(json_res)
 
 
-def reddit_request_data(access_token):
+def reddit_request_data(access_token, data_path=None):
     headers = {"Authorization": f"bearer {access_token}",
                "User-Agent": user_agent}
-    oauth_url = 'https://oauth.reddit.com/api/v1/me'
-    data = requests.get(oauth_url, headers=headers)
-    return data
+    fetch_url = saved_content_endpoint
+
+    if data_path == None:
+        fetch_url = saved_content_endpoint
+    else:
+        fetch_url = data_path
+
+    data = requests.get(fetch_url, headers=headers)
+    if(data.status_code == 200):
+        return data.json()
+    else:
+        sys.exit(data.status_code)
 
 
 def reddit_request_token():
@@ -41,10 +54,6 @@ def reddit_request_token():
     res_json = response.json()
 
     return res_json["access_token"]
-
-
-def return_saved():
-    pass
 
 
 if __name__ == '__main__':
