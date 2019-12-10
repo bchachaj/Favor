@@ -32,10 +32,10 @@ def main():
                          user_agent=user_agent,
                          username=username)
 
-    # print(dir(reddit.user))
-    # user = reddit.redditor(username)
     me = reddit.user.me()
     saved = me.saved
+
+    # creating an list of strings
     saved_item_collection = []
 
     for saved_item in saved(limit=14):
@@ -50,6 +50,9 @@ def main():
         saved_item_collection.append(encoded)
 
     print(len(saved_item_collection))
+    with open('saved_items.txt', 'w') as f:
+        for item in saved_item_collection:
+            f.write("%s\n" % item)
 
 
 # def reddit_request_data(access_token, data_path=None):
