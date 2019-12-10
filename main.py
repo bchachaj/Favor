@@ -3,6 +3,8 @@ import requests
 import sys
 import os
 import json
+import pickle
+import praw
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -13,18 +15,42 @@ username = os.getenv('username')
 password = os.getenv('password')
 user_agent = os.getenv('user_agent')
 
-
+# this endpoint is limited to 100
 saved_content_endpoint = (
-    f"https://oauth.reddit.com/user/{username}/saved"
+    # f"https://oauth.reddit.com/user/{username}/saved?limit=100"
+    f"https://oauth.reddit.com/user/{username}/saved?limit=100"
 )
 
 
 def main():
-    access_token = reddit_request_token()
-    saved_posts = reddit_request_data(access_token)
-    # print(saved_posts['data'])
-    json_res = json.dumps(saved_posts, indent=2)
-    print(json_res)
+    # access_token = reddit_request_token()
+    # saved_posts = reddit_request_data(access_token)
+    # json_res = json.dumps(saved_posts)
+    # print(len(saved_posts['data']["children"]))
+
+    # posts = saved_posts['data']["children"]
+    # print(len(posts))
+
+    reddit = praw.Reddit(client_id=client_id,
+                         client_secret=client_secret,
+                         password=password,
+                         user_agent=user_agent,
+                         username=username)
+    # print(reddit.auth.url(['identity'], '...', 'permanent'))
+
+    # print(dir(reddit.user))
+    user = reddit.redditor(username)
+    me = reddit.user.me()
+    print(me.saved())
+    print(user.saved(limit=1000))
+
+    # for post in posts:
+    # print(post)
+
+    # for row in json_res:
+    # print(len(row))
+    # print(row)
+    # print(json_res)
 
 
 def reddit_request_data(access_token, data_path=None):
