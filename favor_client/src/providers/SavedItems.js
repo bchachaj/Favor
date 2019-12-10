@@ -5,7 +5,7 @@ const Context = React.createContext(null);
 const AppContext = ({ children }) => {
     return (
         <Context.Provider>
-            {children}
+            {children()}
         </Context.Provider>
     )
 }
