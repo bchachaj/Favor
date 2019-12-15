@@ -5,6 +5,8 @@ import * as serviceWorker from './serviceWorker';
 
 import AppContext from './providers/SavedItems';
 import routes from './components/routes';
+import 'milligram';
+import './index.css';
 
 
 ReactDOM.render(<BrowserRouter>

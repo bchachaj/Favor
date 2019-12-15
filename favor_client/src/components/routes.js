@@ -8,9 +8,9 @@ import Comments from './pages/Comments';
 const routes = () => {
     return (
         <Switch>
-            <Route path={'/'}><Dashboard /></Route>
             <Route path={'/comments'}><Comments /></Route>
             <Route path={'/submissions'}><Submissions /></Route>
+            <Route path={'/'}><Dashboard /></Route>
         </Switch>
     )
 }
