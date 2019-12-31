@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactHTMLParser from 'react-html-parser';
 import ReactPlayer from 'react-player'
 
 export default function Submission({ item }) {
-    // console.log(item)
+    const [expand, setExpand] = useState("");
+
     const subreddit = item.subreddit._path;
-    const thumbnail = item.thumbnail;
+    // const thumbnail = item.thumbnail;
     const title = item.title;
-    // console.log(thumbnail);
-    // console.log(item, item.media_embed);
-    console.dir(item);
-    console.warn(item.domain);
+
+    let thumbnail;
+
+    if (item.thumbnail === 'default' || item.thumbnail === 'self') {
+        thumbnail = 'default.png'
+    } else {
+        thumbnail = item.thumbnail;
+    }
 
     let submissionBody;
     if (item.is_self) {
@@ -42,18 +47,29 @@ export default function Submission({ item }) {
         }
     }
 
+    const subToggle = () => {
+        console.log(expand, setExpand)
+        if (expand === "sub-expanded") {
+            setExpand("")
+        } else {
+            setExpand("sub-expanded")
+        }
+    }
+
     return (
         <div className="container sub-contain">
-            <h4>{item.title}</h4>
-            <img src={item.thumbnail} alt="thumbnail" />
-            <div className="sub-body-contain">
+            <div className="sub-top">
+                <img src={thumbnail} alt="thumbnail" />
+                <h4>{item.title}</h4>
+            </div>
+            <span className="sub-toggle" onClick={() => subToggle()}>
+                >>>
+            </span>
+            <div className={`container sub-body-contain ${expand}`}>
                 {submissionBody}
+                {isImage(item)}
             </div>
 
-            {/* pane top  */}
-
-            {isImage(item)}
-            {/* expandable */}
         </div>
     )
 }

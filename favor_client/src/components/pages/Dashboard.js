@@ -29,9 +29,7 @@ export default function Dashboard() {
                 <Link to="/subreddits"><button className="button-outline">Subreddits</button></Link>
             </div >
 
-            <div>
-                <ItemIndex items={savedItems} />
-            </div>
+            <ItemIndex items={savedItems} />
         </div >
     )
 }

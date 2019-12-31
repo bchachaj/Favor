@@ -14,7 +14,7 @@ export default function ItemIndex({ items }) {
     })
 
     return (
-        <div>
+        <div className="item_index_wrapper">
             {generatedList}
         </div>
     )
