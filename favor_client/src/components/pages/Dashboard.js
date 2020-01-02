@@ -11,21 +11,13 @@ export default function Dashboard() {
             const response = await jsonFromLocalFile();
             setSavedItems(response);
         }
-
         fetchData();
 
     }, [])
 
-    // const allItems = savedItems;
-    // let reactElements = allItems.map((item, idx) => (<div key={idx} className="container">{item.title}</div>))
-
     return (
         <div className="container">
-            Dashboard
-
-            <div className="">
-                {/* <Link to="/comments"><button className="button-outline">Comments</button></Link> */}
-                {/* <Link to="/submissions"><button className="button-outline">Submissions</button></Link> */}
+            <div className="nav-bar">
                 <Link to="/subreddits"><button className="button-outline">Subreddits</button></Link>
             </div >
 

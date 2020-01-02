@@ -1,3 +1,11 @@
+.nav-bar {
+  width: 100%; 
+  position: fixed;
+  background: white;
+  z-index: 1;
+  top: 0;
+}
+
 .link_container {
     display: flex; 
 }
@@ -37,15 +45,14 @@
 }
 
 .item_index_wrapper {
-  max-height: 95vh;
-  overflow: scroll;   
+  padding-top: 5%;
 }
 
 .sub-top {
   display: flex;
   align-items: center;
   padding: 2% 0% 2% 0%;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   /* justify-content: center; */
 }
 
@@ -69,7 +76,7 @@
 
 .sub-toggle {
   height: 5vh;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   border-top: none; 
   margin-top: -1px;
   width: 100%;
