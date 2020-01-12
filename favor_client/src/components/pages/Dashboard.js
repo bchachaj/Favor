@@ -45,38 +45,40 @@ export default function Dashboard() {
         setShowSubs(prev => !prev);
     };
     return (
-        <div className="container">
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6">
-                        Favor
+        <>
+            <div className="container">
+                <AppBar position="static">
+                    <Toolbar>
+                        <Typography variant="h6">
+                            Favor
                     </Typography>
-                    <Link to="/subreddits"><Button className={classes.menuButton} variant="contained" color="inherit">Subreddits</Button></Link>
-                </Toolbar>
-            </AppBar>
+                        <Link to="/subreddits"><Button className={classes.menuButton} variant="contained" color="inherit">Subreddits</Button></Link>
+                    </Toolbar>
+                </AppBar>
 
-            <Card>
-                <CardContent>
-                    <FormControl component="fieldset">
-                        <FormGroup aria-label="position" row>
-                            <FormControlLabel
-                                value="start"
-                                control={<Checkbox color="primary" checked={showComments} onClick={() => toggleComments()} />}
-                                label="Show Comments"
-                                labelPlacement="start"
-                            />
-                            <FormControlLabel
-                                value="start"
-                                control={<Checkbox color="primary" checked={showSubs} onClick={() => toggleSubs()} />}
-                                label="Show Submissons"
-                                labelPlacement="start"
-                            />
+                <Card>
+                    <CardContent>
+                        <FormControl component="fieldset">
+                            <FormGroup aria-label="position" row>
+                                <FormControlLabel
+                                    value="start"
+                                    control={<Checkbox color="primary" checked={showComments} onClick={() => toggleComments()} />}
+                                    label="Show Comments"
+                                    labelPlacement="start"
+                                />
+                                <FormControlLabel
+                                    value="start"
+                                    control={<Checkbox color="primary" checked={showSubs} onClick={() => toggleSubs()} />}
+                                    label="Show Submissons"
+                                    labelPlacement="start"
+                                />
 
-                        </FormGroup>
-                    </FormControl>
-                </CardContent>
-            </Card>
+                            </FormGroup>
+                        </FormControl>
+                    </CardContent>
+                </Card>
+            </div >
             <ItemIndex items={savedItems} showComments={showComments} showSubs={showSubs} />
-        </div >
+        </>
     )
 }

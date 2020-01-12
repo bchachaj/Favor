@@ -1,20 +1,34 @@
 import React, { useState } from 'react'
+import LazyLoad from 'react-lazyload';
+
 import Comment from './Comment';
 import Submission from './Submission';
+
+
+const lazyWrapper = (item) => {
+    return (
+        <LazyLoad height={100} offset={15}>
+            {item}
+        </LazyLoad>
+    );
+};
 
 export default function ItemIndex({ items, showComments = true, showSubs = true }) {
 
     const generatedList = items.map((item, idx) => {
         if (item.hasOwnProperty('body') && showComments) {
-            return <Comment item={item} key={idx} />
+            return lazyWrapper(<Comment item={item} key={idx} />);
         } else if (!item.hasOwnProperty('body') && showSubs) {
-            return <Submission item={item} key={idx} />
+            return lazyWrapper(<Submission item={item} key={idx} />);
         }
+
+
     })
+
 
     return (
         <div className="item_index_wrapper">
-            {generatedList}
+            {generatedList.length > 0 ? generatedList : "No Content to display"}
         </div>
     )
 }

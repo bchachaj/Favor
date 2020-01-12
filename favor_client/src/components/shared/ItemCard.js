@@ -4,11 +4,9 @@ import Card from '@material-ui/core/Card';
 
 const useStyles = makeStyles({
     root: {
-        margin: '10px 30px',
+        margin: '10px 0px 20px 0px',
     },
 });
-
-
 
 const ItemCard = React.forwardRef((props, ref) => {
     const classes = useStyles();

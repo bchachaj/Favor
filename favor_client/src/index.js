@@ -15,7 +15,7 @@ import './index.css';
 const App = () => {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
-    const theme = React.useMemo(
+    const theme = useMemo(
         () =>
             createMuiTheme({
                 palette: {

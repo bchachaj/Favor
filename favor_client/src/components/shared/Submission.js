@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function Submission({ item }) {
+const Submission = React.memo(({ item }) => {
     const [expand, setExpand] = useState(false)
     const classes = useStyles();
 
@@ -104,4 +104,6 @@ export default function Submission({ item }) {
             </ItemCard>
         </ClickAwayListener>
     )
-}
+});
+
+export default Submission;

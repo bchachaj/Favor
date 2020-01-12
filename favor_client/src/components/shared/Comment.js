@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function Comment({ item }) {
+const Comment = React.memo(({ item }) => {
     const classes = useStyles();
 
     return (
@@ -33,4 +33,7 @@ export default function Comment({ item }) {
             </CardActions>
         </ItemCard>
     )
-}
+});
+
+
+export default Comment;
