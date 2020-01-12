@@ -8,7 +8,11 @@ const useStyles = makeStyles({
     },
 });
 
-export default function ItemCard({ children }) {
+
+
+const ItemCard = React.forwardRef((props, ref) => {
     const classes = useStyles();
-    return <Card className={classes.root}>{children}</Card>;
-}
+    return <Card className={classes.root} ref={ref}>{props.children}</Card>;
+});
+
+export default ItemCard;    

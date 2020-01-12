@@ -34,7 +34,7 @@ export default function Comment({ item }) {
                     Comment
              </Typography>
 
-                <Typography variant="body" component="p">
+                <Typography variant="body1" component="p">
                     {item.body}
                 </Typography>
             </CardContent>
