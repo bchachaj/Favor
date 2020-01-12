@@ -1,21 +1,19 @@
 import React, { useState } from 'react'
 import ReactHTMLParser from 'react-html-parser';
 import ReactPlayer from 'react-player'
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Avatar from '@material-ui/core/Avatar';
+import Collapse from '@material-ui/core/Collapse';
+import { ExpandMore, ExpandLess, Stars } from '@material-ui/icons';
+
+import ItemCard from './ItemCard';
 
 export default function Submission({ item }) {
-    const [expand, setExpand] = useState("");
-
-    const subreddit = item.subreddit._path;
-    // const thumbnail = item.thumbnail;
-    const title = item.title;
-
-    let thumbnail;
-
-    if (item.thumbnail === 'default' || item.thumbnail === 'self') {
-        thumbnail = 'default.png'
-    } else {
-        thumbnail = item.thumbnail;
-    }
+    const [expand, setExpand] = useState(false)
 
     let submissionBody;
     if (item.is_self) {
@@ -27,10 +25,7 @@ export default function Submission({ item }) {
     }
     else if (item.media_embed.content) {
         submissionBody = <div className="video_wrapper">{ReactHTMLParser(item.media_embed.content)}</div>;
-    } else if (item.domain == 'i.redd.it') {
-        // submissionBody = (<div><img src={item.url} alt="reddit image" /></div>)
-    }
-    else {
+    } else {
         submissionBody = (<div><a href={item.url}>{item.url}</a></div>);
     }
 
@@ -38,7 +33,6 @@ export default function Submission({ item }) {
         const image_pattern = (/\.(gif|jpg|jpeg|tiff|png)$/i);
         const hasImgExtension = image_pattern.test(item.url);
         if (hasImgExtension) {
-            console.log(item.url)
             return (
                 <div className="sub-img-contain">
                     <img src={item.url} alt="submission" />
@@ -47,29 +41,45 @@ export default function Submission({ item }) {
         }
     }
 
-    const subToggle = () => {
-        console.log(expand, setExpand)
-        if (expand === "sub-expanded") {
-            setExpand("")
+    const handleChange = () => {
+        setExpand(prev => !prev);
+    };
+
+    const handleClickAway = () => {
+        setExpand(false);
+    }
+
+    const toggleIcon = () => (
+        !expand ? <ExpandMore /> : <ExpandLess />
+    )
+
+    const toggleThumbnail = () => {
+        if (item.thumbnail === 'default' || item.thumbnail === 'self') {
+            return <Stars fontSize="large" />
         } else {
-            setExpand("sub-expanded")
+            return <Avatar src={item.thumbnail} />
         }
     }
 
     return (
-        <div className="container sub-contain">
-            <div className="sub-top">
-                <img src={thumbnail} alt="thumbnail" />
-                <h4>{item.title}</h4>
-            </div>
-            <span className="sub-toggle" onClick={() => subToggle()}>
-                >>>
-            </span>
-            <div className={`container sub-body-contain ${expand}`}>
-                {submissionBody}
-                {isImage(item)}
-            </div>
-
-        </div>
+        <ClickAwayListener onClickAway={handleClickAway}>
+            <ItemCard>
+                <div className="sub-top">
+                    {toggleThumbnail()}
+                    <h4>{item.title}</h4>
+                </div>
+                <span className="sub-toggle" onClick={() => handleChange()}>
+                    {toggleIcon()}
+                </span>
+                <Collapse in={expand}>
+                    <CardContent>
+                        <div className={`container sub-body-contain sub-expanded`}>
+                            {submissionBody}
+                            {isImage(item)}
+                        </div>
+                    </CardContent>
+                </Collapse>
+            </ItemCard>
+        </ClickAwayListener>
     )
 }
