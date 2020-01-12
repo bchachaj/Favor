@@ -26,7 +26,6 @@ const useStyles = makeStyles({
 
 export default function Comment({ item }) {
     const classes = useStyles();
-    console.log(item);
 
     return (
         <ItemCard>
