@@ -1,12 +1,11 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import Navbar from './../shared/Navbar';
 
 export default function SubredditsDisplayPage({ savedItems }) {
-    console.warn(savedItems.length)
 
     return (
-        <div>
-            Subreddits
-        </div>
+        <>
+            <Navbar link="/dashboard" linkLabel={"Home"} />
+        </>
     )
 }

@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import Navbar from './../shared/Navbar';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -14,25 +9,9 @@ import CardContent from '@material-ui/core/CardContent';
 
 import ItemIndex from './../shared/ItemIndex';
 
-const useStyles = makeStyles(theme => ({
-    menuButton: {
-        marginLeft: theme.spacing(2),
-    },
-    navBar: {
-        position: "fixed",
-        left: 0,
-        width: "100%"
-    },
-    dashIndex: {
-
-    }
-
-}));
-
 export default function Dashboard({ savedItems }) {
     const [showComments, setShowComments] = useState(true);
     const [showSubs, setShowSubs] = useState(true);
-    const classes = useStyles();
 
     const toggleComments = () => {
         setShowComments(prev => !prev);
@@ -42,38 +21,29 @@ export default function Dashboard({ savedItems }) {
     };
     return (
         <>
-            <div className="container">
-                <AppBar position="static">
-                    <Toolbar>
-                        <Typography variant="h6">
-                            Favor
-                    </Typography>
-                        <Link to="/subreddits"><Button className={classes.menuButton} variant="contained" color="inherit">Subreddits</Button></Link>
-                    </Toolbar>
-                </AppBar>
+            <Navbar link="/subreddits" linkLabel={"Subreddits"} />
 
-                <Card>
-                    <CardContent>
-                        <FormControl component="fieldset">
-                            <FormGroup aria-label="position" row>
-                                <FormControlLabel
-                                    value="start"
-                                    control={<Checkbox color="primary" checked={showComments} onClick={() => toggleComments()} />}
-                                    label="Show Comments"
-                                    labelPlacement="start"
-                                />
-                                <FormControlLabel
-                                    value="start"
-                                    control={<Checkbox color="primary" checked={showSubs} onClick={() => toggleSubs()} />}
-                                    label="Show Submissons"
-                                    labelPlacement="start"
-                                />
+            <Card>
+                <CardContent>
+                    <FormControl component="fieldset">
+                        <FormGroup aria-label="position" row>
+                            <FormControlLabel
+                                value="start"
+                                control={<Checkbox color="primary" checked={showComments} onClick={() => toggleComments()} />}
+                                label="Show Comments"
+                                labelPlacement="start"
+                            />
+                            <FormControlLabel
+                                value="start"
+                                control={<Checkbox color="primary" checked={showSubs} onClick={() => toggleSubs()} />}
+                                label="Show Submissons"
+                                labelPlacement="start"
+                            />
 
-                            </FormGroup>
-                        </FormControl>
-                    </CardContent>
-                </Card>
-            </div >
+                        </FormGroup>
+                    </FormControl>
+                </CardContent>
+            </Card>
             <ItemIndex items={savedItems} showComments={showComments} showSubs={showSubs} />
         </>
     )
