@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import ReactHTMLParser from 'react-html-parser';
 import ReactPlayer from 'react-player'
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 
@@ -70,7 +68,7 @@ const Submission = React.memo(({ item }) => {
         !expand ? <ExpandMore /> : <ExpandLess />
     )
 
-    const toggleThumbnail = () => {
+    const displayRelevantIcon = () => {
         if (item.thumbnail === 'default' || item.thumbnail === 'self') {
             return <Stars fontSize="large" />
         } else {
@@ -82,7 +80,7 @@ const Submission = React.memo(({ item }) => {
         <ClickAwayListener onClickAway={handleClickAway}>
             <ItemCard>
                 <div className="sub-top">
-                    {toggleThumbnail()}
+                    {displayRelevantIcon()}
                     <h4>{item.title}</h4>
                 </div>
                 <span className="sub-toggle" onClick={() => handleChange()}>
