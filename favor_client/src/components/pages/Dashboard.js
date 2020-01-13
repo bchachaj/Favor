@@ -8,35 +8,31 @@ import Typography from '@material-ui/core/Typography';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
-import jsonFromLocalFile from './../../utils/readSavedFile';
 import ItemIndex from './../shared/ItemIndex';
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
         marginLeft: theme.spacing(2),
     },
+    navBar: {
+        position: "fixed",
+        left: 0,
+        width: "100%"
+    },
+    dashIndex: {
+
+    }
 
 }));
 
-export default function Dashboard() {
-    const [savedItems, setSavedItems] = useState([]);
+export default function Dashboard({ savedItems }) {
     const [showComments, setShowComments] = useState(true);
     const [showSubs, setShowSubs] = useState(true);
     const classes = useStyles();
-
-    useEffect(() => {
-        async function fetchData() {
-            const response = await jsonFromLocalFile();
-            setSavedItems(response);
-        }
-        fetchData();
-
-    }, [])
 
     const toggleComments = () => {
         setShowComments(prev => !prev);

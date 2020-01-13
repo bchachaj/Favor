@@ -6,8 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import AppContext from './providers/SavedItems';
-import routes from './components/routes';
+import Routes from './components/routes';
 // import 'milligram';
 import './index.css';
 
@@ -30,7 +29,7 @@ const App = () => {
             <Container>
                 <CssBaseline />
                 <BrowserRouter>
-                    <AppContext>{routes}</AppContext>
+                    <Routes />
                 </BrowserRouter>
             </Container>
         </ThemeProvider>
