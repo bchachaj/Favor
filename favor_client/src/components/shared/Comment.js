@@ -16,12 +16,14 @@ const useStyles = makeStyles({
 const Comment = React.memo(({ item }) => {
     const classes = useStyles();
 
+
+    console.log(item)
     return (
         <ItemCard>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    Comment
-             </Typography>
+                    Comment - {item.subreddit.display_name} - {item.link_title}
+                </Typography>
 
                 <Typography variant="body1" component="p">
                     {item.body}
