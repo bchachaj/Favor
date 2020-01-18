@@ -24,6 +24,8 @@ const App = () => {
         [prefersDarkMode],
     );
 
+    console.log('app render')
+
     return (
         <ThemeProvider theme={theme}>
             <Container>

@@ -6,20 +6,25 @@ import Submission from './Submission';
 
 
 const lazyWrapper = (item, idx) => {
-    return (
-        <LazyLoad height={100} offset={15} key={idx} >
-            {item}
-        </LazyLoad>
-    );
+    // return (
+    //     <LazyLoad height={100} offset={15} key={idx} >
+    //         {item}
+    //     </LazyLoad>
+    // );
+
+    return item;
+
 };
 
 export default function ItemIndex({ items, showComments = true, showSubs = true }) {
 
     const generatedList = items.map((item, idx) => {
         if (item.hasOwnProperty('body') && showComments) {
-            return lazyWrapper(<Comment item={item} />, idx);
+            // return lazyWrapper(<Comment item={item} />, idx);
+            return <Comment item={item} key={idx} />;
         } else if (!item.hasOwnProperty('body') && showSubs) {
-            return lazyWrapper(<Submission item={item} />, idx);
+            // return lazyWrapper(<Submission item={item} />, idx);
+            return <Submission item={item} key={idx} />;
         }
 
 

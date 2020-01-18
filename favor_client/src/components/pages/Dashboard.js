@@ -19,6 +19,7 @@ export default function Dashboard({ savedItems }) {
     const toggleSubs = () => {
         setShowSubs(prev => !prev);
     };
+
     return (
         <>
             <Navbar link="/subreddits" linkLabel={"Subreddits"} />
