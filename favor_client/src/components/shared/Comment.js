@@ -15,9 +15,7 @@ const useStyles = makeStyles({
 
 const Comment = React.memo(({ item }) => {
     const classes = useStyles();
-
-
-    console.log(item)
+    
     return (
         <ItemCard>
             <CardContent>
