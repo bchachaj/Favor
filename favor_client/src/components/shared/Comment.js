@@ -4,7 +4,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import ReactHTMLParser from 'react-html-parser';
 import ItemCard from './ItemCard';
 
 const useStyles = makeStyles({
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 
 const Comment = React.memo(({ item }) => {
     const classes = useStyles();
-    
+
     return (
         <ItemCard>
             <CardContent>
@@ -23,13 +23,11 @@ const Comment = React.memo(({ item }) => {
                     Comment - {item.subreddit.display_name} - {item.link_title}
                 </Typography>
 
-                <Typography variant="body1" component="p">
-                    {item.body}
-                </Typography>
+                {ReactHTMLParser(item.body_html)}
             </CardContent>
 
             <CardActions>
-                <Button size="small" variant="contained" color="primary" target="_blank" href={item.link_permalink}>Visit thread</Button>
+                <Button size="small" variant="contained" color="default" target="_blank" href={item.link_permalink}>Visit thread</Button>
             </CardActions>
         </ItemCard>
     )

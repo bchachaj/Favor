@@ -3,7 +3,6 @@ import ReactHTMLParser from 'react-html-parser';
 import ReactPlayer from 'react-player'
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Avatar from '@material-ui/core/Avatar';
 import Collapse from '@material-ui/core/Collapse';
@@ -25,34 +24,40 @@ const Submission = React.memo(({ item }) => {
 
     const image_pattern = (/\.(gif|jpg|jpeg|tiff|png)$/i);
     const hasImgExtension = image_pattern.test(item.url);
+    const isStreamable = item.domain === "streamable.com";
+    const isVReddit = item.domain === "streamable.com";
+    const isHostedVid = item.media_embed.content;
 
     let submissionBody;
 
-    // TODO: 
-    // refactor
+    const vRedditTemplate = (item) => (
+        <>
+            <ReactPlayer controls width={'auto'} url={item.media.reddit_video.fallback_url} /><br />
+            <div className="v-disclaimer">
+                Media hosted on v.reddit does not have sound on account of Reddit API design.<br />
+            </div>
+        </>
+    );
+
+    const imgTemplate = (item) => (
+        <div className="sub-img-contain">
+            <img src={item.url} alt="submission" />
+        </div>
+    );
 
     if (item.is_self) {
+        // simple text
         submissionBody = ReactHTMLParser(item.selftext_html)
-    } else if (item.domain === "v.redd.it") {
-        submissionBody = (
-            <>
-                <ReactPlayer controls width={'auto'} url={item.media.reddit_video.fallback_url} /><br />
-                <div className="v-disclaimer">
-                    Media hosted on v.reddit does not have sound on account of Reddit API design.<br />
-                </div>
-            </>
-        );
-    } else if (item.domain === "streamable.com") {
+    } else if (isStreamable) {
         submissionBody = <ReactPlayer controls width={'auto'} url={item.url} />
     } else if (hasImgExtension) {
-        submissionBody = (
-            <div className="sub-img-contain">
-                <img src={item.url} alt="submission" />
-            </div>
-        );
-    } else if (item.media_embed.content) {
+        submissionBody = imgTemplate(item);
+    } else if (isHostedVid) {
         submissionBody = <div className="video_wrapper">{ReactHTMLParser(item.media_embed.content)}</div>;
+    } else if (isVReddit) {
+        submissionBody = vRedditTemplate(item);
     } else {
+        //du of a link
         submissionBody = (<div><a href={item.url}>{item.url}</a></div>);
     }
 
@@ -81,7 +86,7 @@ const Submission = React.memo(({ item }) => {
             <ItemCard>
                 <div className="sub-top">
                     {displayRelevantIcon()}
-                    <h4>{item.title}</h4>
+                    <h4>{item.title} - {item.subreddit.display_name}</h4>
                 </div>
                 <span className="sub-toggle" onClick={() => handleChange()}>
                     {toggleIcon()}
@@ -93,7 +98,7 @@ const Submission = React.memo(({ item }) => {
                         </div>
                         <Button size="small"
                             variant="contained"
-                            color="primary"
+                            color="default"
                             target="_blank"
                             className={classes.linkOutButton}
                             href={`https://reddit.com${item.permalink}`} >Visit original submission</Button>
