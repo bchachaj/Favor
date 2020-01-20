@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
+import Input from '@material-ui/core/Input';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -8,7 +9,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'center',
         flexWrap: 'wrap',
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(1),
         '& > *': {
             margin: theme.spacing(0.5),
         },
@@ -16,6 +17,17 @@ const useStyles = makeStyles(theme => ({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+        },
+        chipIndexWrapper: {
+            flexDirection: 'column',
+            alignContent: 'center',
+        },
+        chipSearch: {
+            padding: '0 24px 0 24px !important',
+            marginBottom: theme.spacing(1),
+        },
+        searchInput: {
+            minWidth: '300px'
         }
     },
 }));
@@ -43,8 +55,16 @@ export default function SubChipIndex({ subreddits, toggleChipFilter, filters }) 
     });
 
     return (
-        <div className={classes.root} id="sub-display-container">
-            {subChips}
+        <div className={classes.chipIndexWrapper}>
+            <div className={classes.root}>
+                {/* <form className={classes.root} noValidate autoComplete="off">
+                    <Input placeholder="Click to search tags" inputProps={{ 'aria-label': 'subreddit search' }} />
+                </form> */}
+            </div>
+            
+            <div className={classes.root} id="sub-display-container">
+                {subChips}
+            </div>
         </div>
     )
 }
