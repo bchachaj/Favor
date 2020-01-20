@@ -4,10 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import Comment from './Comment';
 import Submission from './Submission';
 
-
 const lazyWrapper = (item, idx) => {
     return (
-        <LazyLoad height={100} offset={15} key={idx} >
+        <LazyLoad height={150} offset={15} key={idx} >
             {item}
         </LazyLoad>
     );

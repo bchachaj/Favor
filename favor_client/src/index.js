@@ -1,40 +1,24 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Routes from './components/routes';
-// import 'milligram';
+import { CustomThemeProvider } from './providers/Theme';
 import './index.css';
 
 
 const App = () => {
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-    const theme = useMemo(
-        () =>
-            createMuiTheme({
-                palette: {
-                    type: prefersDarkMode ? 'dark' : 'light',
-                },
-            }),
-        [prefersDarkMode],
-    );
-
-    console.log('app render')
-
     return (
-        <ThemeProvider theme={theme}>
-            <Container>
-                <CssBaseline />
-                <BrowserRouter>
-                    <Routes />
-                </BrowserRouter>
-            </Container>
-        </ThemeProvider>
+        <CustomThemeProvider>
+                <Container>
+                    <CssBaseline />
+                    <BrowserRouter>
+                        <Routes />
+                    </BrowserRouter>
+                </Container>
+        </CustomThemeProvider>
     )
 };
 

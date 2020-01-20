@@ -1,11 +1,10 @@
 
 const jsonFromLocalFile = async () => {
-    const set = await fetch('/saved_items.txt')
+    const set = await fetch('/saved/saved_items.txt')
         .then((r) => r.text())
         .then((text) => {
             return convertToJSON(text)
-        });
-
+        }).catch(e => console.log(e));
     return set;
 };
 
