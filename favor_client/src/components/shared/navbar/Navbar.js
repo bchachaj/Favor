@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,7 +9,8 @@ import ThemeToggle from './ThemeToggle';
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
-        marginLeft: theme.spacing(2),
+        marginLeft: theme.spacing(0.5),
+        marginRight: theme.spacing(0.5),
     },
     navBar: {
         position: "fixed",
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
         width: "100%",
         zIndex: 100
     },
-    title: {
+    grow: {
         flexGrow: 1
     },
     toolbar: theme.mixins.toolbar,
@@ -26,15 +27,24 @@ const useStyles = makeStyles(theme => ({
 export default function Navbar({ link, linkLabel }) {
     const classes = useStyles();
 
+    const renderLink = React.useMemo(
+        () =>
+            React.forwardRef((linkProps, ref) => (
+                <Link ref={ref} to={link} {...linkProps} />
+            )),
+        [],
+    );
+
     return (
         <>
             <div className={classes.navBar}>
                 <AppBar position="static">
                     <Toolbar>
-                        <Typography className={classes.title} variant="h6" noWrap>
+                        <Typography className={classes.grow} variant="h6" noWrap>
                             Favor
                          </Typography>
-                        <ThemeToggle />
+                        <ThemeToggle className={classes.menuButton}/>
+                        <Button variant="outlined" className={classes.menuButton} component={renderLink}>{linkLabel}</Button>
                     </Toolbar>
 
                 

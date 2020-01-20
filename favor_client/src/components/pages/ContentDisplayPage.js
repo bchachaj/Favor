@@ -59,7 +59,7 @@ export default function ContentDisplayPage({ savedItems, subreddits }) {
 
     return (
         <BackToTop>
-            <Navbar link="/dashboard" linkLabel={"Home"} />
+            <Navbar link="/analytics" linkLabel={"Visit Analytics Page"} />
 
             <ExpansionPanel defaultExpanded>
                 <ExpansionPanelSummary

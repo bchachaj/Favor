@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import ContentDisplayPage from './pages/ContentDisplayPage';
 import jsonFromLocalFile from './../utils/readSavedFile';
 import subredditSelector from './../utils/subredditSelector';
+import SubAnalyticsPage from './pages/SubAnalyticsPage';
 
 const Routes = () => {
     const [savedItems, setSavedItems] = useState([]);
@@ -22,6 +23,7 @@ const Routes = () => {
 
     return (
         <Switch>
+            <Route path={'/analytics'}><SubAnalyticsPage savedItems={savedItems} subreddits={subs} /></Route>
             <Route path={'/'}><ContentDisplayPage savedItems={savedItems} subreddits={subs} /></Route>
         </Switch>
     )
