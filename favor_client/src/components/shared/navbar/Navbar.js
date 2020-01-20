@@ -37,10 +37,10 @@ export default function Navbar({ link, linkLabel }) {
                         <ThemeToggle />
                     </Toolbar>
 
+                
                 </AppBar>
-
             </div>
-            <div className={classes.toolbar}></div>
+            <div className={classes.toolbar} id="back-to-top-anchor"></div>
         </>
     )
 }

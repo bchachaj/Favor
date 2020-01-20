@@ -6,13 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Divider from '@material-ui/core/Divider';
-import Navbar from '../shared/navbar/Navbar';
-import ItemIndex from '../shared/ItemIndex';
-import SubChipIndex from '../SubChipIndex';
 import TypeFilterControl from '../TypeFilterControl';
-import useChipFilter from '../../hooks/useChipFilter';
-
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+
+import BackToTop from './../shared/BackToTop';
+import Navbar from '../shared/navbar/Navbar';
+import ItemIndex from '../content/ItemIndex';
+import SubChipIndex from '../SubChipIndex';
+import useChipFilter from '../../hooks/useChipFilter';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -57,7 +58,7 @@ export default function ContentDisplayPage({ savedItems, subreddits }) {
     };
 
     return (
-        <>
+        <BackToTop>
             <Navbar link="/dashboard" linkLabel={"Home"} />
 
             <ExpansionPanel defaultExpanded>
@@ -85,6 +86,6 @@ export default function ContentDisplayPage({ savedItems, subreddits }) {
 
             </ExpansionPanel>
             <ItemIndex items={filteredState()} />
-        </>
+        </BackToTop>
     )
 }
