@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import LazyLoad from 'react-lazyload';
 import Typography from '@material-ui/core/Typography';
 import Comment from './Comment';
@@ -11,15 +11,14 @@ const lazyWrapper = (item, idx) => {
             {item}
         </LazyLoad>
     );
-
 };
 
-export default function ItemIndex({ items, showComments = true, showSubs = true }) {
+export default function ItemIndex({ items }) {
 
     const generatedList = items.map((item, idx) => {
-        if (item.hasOwnProperty('body') && showComments) {
+        if (item.hasOwnProperty('body')) {
             return lazyWrapper(<Comment item={item} />, idx);
-        } else if (!item.hasOwnProperty('body') && showSubs) {
+        } else if (!item.hasOwnProperty('body')) {
             return lazyWrapper(<Submission item={item} />, idx);
         }
     })

@@ -34,7 +34,6 @@ export default function Navbar({ link, linkLabel }) {
                         <Typography className={classes.title} variant="h6" noWrap>
                             Favor
                          </Typography>
-                        <Button color="inherit">Login</Button>
                         <ThemeToggle />
                     </Toolbar>
 

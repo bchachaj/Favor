@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Dashboard from './pages/Dashboard';
-import SubredditsDisplayPage from './pages/SubredditsDisplayPage';
+import ContentDisplayPage from './pages/ContentDisplayPage';
 import jsonFromLocalFile from './../utils/readSavedFile';
 import subredditSelector from './../utils/subredditSelector';
 
@@ -21,12 +20,9 @@ const Routes = () => {
         fetchData();
     }, [])
 
-    console.log('render')
-
     return (
         <Switch>
-            <Route path={'/subreddits'}><SubredditsDisplayPage savedItems={savedItems} subreddits={subs} /></Route>
-            <Route path={'/'}><Dashboard savedItems={savedItems} /></Route>
+            <Route path={'/'}><ContentDisplayPage savedItems={savedItems} subreddits={subs} /></Route>
         </Switch>
     )
 };

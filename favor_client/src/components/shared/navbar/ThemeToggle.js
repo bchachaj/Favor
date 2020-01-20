@@ -14,14 +14,14 @@ export default function ThemeToggle() {
 
     const toggleIcon = (themePref) => {
         if (themePref === 'light') {
-            return <Brightness4SharpIcon onClick={() => toggleTheme(themePref)} />
+            return <Brightness4SharpIcon />
         } else {
-            return <Brightness5TwoToneIcon onClick={() => toggleTheme(themePref)} />
+            return <Brightness5TwoToneIcon />
         }
     }
 
     return (
-        <IconButton>
+        <IconButton onClick={() => toggleTheme(themePref)}>
             {toggleIcon(themePref)}
         </IconButton>
     )
