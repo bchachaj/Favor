@@ -38,7 +38,7 @@ def main():
     # creating an list of strings
     saved_item_collection = []
 
-    for saved_item in saved(limit=14):
+    for saved_item in saved(limit=1000):
         duped_item = copy.deepcopy(saved_item)
 
         # delete '_reddit' attribute to save space
@@ -50,7 +50,7 @@ def main():
         saved_item_collection.append(encoded)
 
     print(len(saved_item_collection))
-    with open('saved_items.txt', 'w') as f:
+    with open('saved_items.txt', 'w+') as f:
         for item in saved_item_collection:
             f.write("%s\n" % item)
 
