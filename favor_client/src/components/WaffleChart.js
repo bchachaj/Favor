@@ -42,6 +42,25 @@ const DynamicWaffle = ({ data, chartOptions }) => {
         emptyOpacity={0.55}
         motionStiffness={90}
         motionDamping={11}
+        tooltip={e => {
+            return (
+                <div
+                    style={{
+                        background: "white",
+                        padding: "4px 9px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        color: "black",
+                    }}
+                >
+                    {e.label}:&nbsp;
+                    {e.value}&nbsp;
+                    ({((e.value / chartOptions.total.value) * 100).toFixed(3)}%)
+                </div>
+            );
+        }}
     />);
 };
 
