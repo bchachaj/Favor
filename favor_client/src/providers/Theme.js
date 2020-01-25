@@ -19,10 +19,13 @@ export const CustomThemeProvider = ({ children }) => {
                 //         main: '#00bcd4',
                 //     },
                         primary: {
-                            main: '#7986cb',
+                            // main: '#4e33eb',
+                            main: '#0B6FCC'
+                            // main: '#5DBCD6',
                         },
                         secondary: {
-                            main: '#80deea',
+                            // main: '#80deea',
+                            main: '#FFA400',
                         },
                 },
             }),

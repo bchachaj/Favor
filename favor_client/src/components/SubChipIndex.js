@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-import Input from '@material-ui/core/Input';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({

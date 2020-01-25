@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 
 import Comment from './Comment';
 import Submission from './Submission';
-import BackToTop from '../shared/BackToTop';
 
 const lazyWrapper = (item, idx) => {
     return (
