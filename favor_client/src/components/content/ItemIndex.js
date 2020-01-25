@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import LazyLoad from 'react-lazyload';
 import Typography from '@material-ui/core/Typography';
 
@@ -16,15 +16,11 @@ const lazyWrapper = (item, idx) => {
 export default function ItemIndex({ items, expanded }) {
     const generatedList = items.map((item, idx) => {
         if (item.hasOwnProperty('body')) {
-            // return lazyWrapper(<Comment item={item} />, idx);
-            return <Comment item={item} key={idx}/>
+            return lazyWrapper(<Comment item={item} />, idx);
         } else if (!item.hasOwnProperty('body')) {
             return lazyWrapper(<Submission item={item} expanded={expanded} />, idx);
-            // return <Submission item={item} expanded={expanded} key={idx}/>
         }
     })
-
-    // useEffect(() => {}, [expanded])
 
     const listItem = (<>
                         <Typography color="textSecondary" gutterBottom>
