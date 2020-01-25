@@ -13,6 +13,7 @@ import BackToTop from './../shared/BackToTop';
 import Navbar from '../shared/navbar/Navbar';
 import ItemIndex from '../content/ItemIndex';
 import SubChipIndex from '../SubChipIndex';
+import ExpandControl from './../ExpandControl';
 import useChipFilter from '../../hooks/useChipFilter';
 
 const useStyles = makeStyles(theme => ({
@@ -35,6 +36,7 @@ export default function ContentDisplayPage({ savedItems, subreddits }) {
     const { filters, toggleChipFilter, chipFilteredState } = useChipFilter(savedItems);
     const [showComments, setShowComments] = useState(true);
     const [showSubs, setShowSubs] = useState(true);
+    const [expanded, setExpanded] = useState(false);
 
     const toggleComments = () => {
         setShowComments(prev => !prev);
@@ -85,7 +87,9 @@ export default function ContentDisplayPage({ savedItems, subreddits }) {
                 </ExpansionPanelDetails>
 
             </ExpansionPanel>
-            <ItemIndex items={filteredState()} />
+            <ExpandControl expanded={expanded} setExpanded={setExpanded} />
+            <ItemIndex items={filteredState()} expanded={expanded}/>
         </BackToTop>
     )
 }
+

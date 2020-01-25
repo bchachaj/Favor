@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactHTMLParser from 'react-html-parser';
 import ReactPlayer from 'react-player'
 import CardContent from '@material-ui/core/CardContent';
@@ -18,9 +18,13 @@ const useStyles = makeStyles({
     }
 });
 
-const Submission = React.memo(({ item }) => {
-    const [expand, setExpand] = useState(false)
+const Submission = React.memo(({ item, expanded }) => {
+    const [expand, setExpand] = useState(expanded)
     const classes = useStyles();
+
+    useEffect(() => {
+        setExpand(expanded)
+    }, [expanded])
 
     const image_pattern = (/\.(gif|jpg|jpeg|tiff|png)$/i);
     const hasImgExtension = image_pattern.test(item.url);
@@ -66,7 +70,10 @@ const Submission = React.memo(({ item }) => {
     };
 
     const handleClickAway = () => {
-        setExpand(false);
+        // only allow clickaway if global 'expand all' not toggled
+        if(!expanded) {
+            setExpand(false);
+        }
     }
 
     const toggleIcon = () => (
