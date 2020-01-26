@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -32,7 +32,7 @@ export default function Navbar({ link, linkLabel }) {
             React.forwardRef((linkProps, ref) => (
                 <Link ref={ref} to={link} {...linkProps} />
             )),
-        [],
+        [link],
     );
 
     return (

@@ -1,4 +1,4 @@
-import React from 'react'
+import React    from 'react'
 import LazyLoad from 'react-lazyload';
 import Typography from '@material-ui/core/Typography';
 
@@ -7,7 +7,7 @@ import Submission from './Submission';
 
 const lazyWrapper = (item, idx) => {
     return (
-        <LazyLoad height={250} offset={100} key={idx} once={true}>
+        <LazyLoad height={150} offset={300} key={idx} once={true}>
             {item}
         </LazyLoad>
     );
@@ -25,7 +25,7 @@ export default function ItemIndex({ items, expanded }) {
     const listItem = (<>
                         <Typography color="textSecondary" gutterBottom>
                             Viewing {generatedList.length} items
-                                        </Typography>
+                        </Typography>
                         {generatedList}
                     </>);
 

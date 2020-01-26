@@ -27,7 +27,7 @@ a {
   position: relative;
   width: 100%;
   height: auto;
-  padding-top: 3%;
+  /* padding-top: 3%; */
   height: 0px;
   display: none;
 }
@@ -81,12 +81,18 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .sub-img-contain img {
   max-width: 100%;
+  max-height: 1000px;
 }
 
 .sub-toggle:hover {
   cursor: pointer;
+}
+
+div > video {
+  max-width: 100%; 
 }

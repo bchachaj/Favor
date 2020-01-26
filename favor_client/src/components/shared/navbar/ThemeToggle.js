@@ -20,8 +20,10 @@ export default function ThemeToggle() {
         }
     }
 
+    const inlineStyles = { border: '1px solid #1761a6', marginRight: '1%' }; 
+
     return (
-        <IconButton onClick={() => toggleTheme(themePref)}>
+        <IconButton onClick={() => toggleTheme(themePref)} variant="outlined" style={inlineStyles}>
             {toggleIcon(themePref)}
         </IconButton>
     )

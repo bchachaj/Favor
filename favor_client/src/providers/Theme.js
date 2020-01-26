@@ -12,19 +12,10 @@ export const CustomThemeProvider = ({ children }) => {
             createMuiTheme({
                 palette: {
                     type: themePref,
-                //     primary: {
-                //         main: '#0d47a1',
-                //     },
-                //     secondary: {
-                //         main: '#00bcd4',
-                //     },
                         primary: {
-                            // main: '#4e33eb',
                             main: '#0B6FCC'
-                            // main: '#5DBCD6',
                         },
                         secondary: {
-                            // main: '#80deea',
                             main: '#FFA400',
                         },
                 },
