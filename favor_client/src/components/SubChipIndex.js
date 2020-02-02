@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
-import Avatar from '@material-ui/core/Avatar';
 import Search from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { makeStyles } from '@material-ui/core/styles';
+
+import SubChip from './SubChip';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,18 +38,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SubChipIndex({ subreddits, toggleChipFilter, activeFilters }) {
+export default function SubChipIndex({ chipArr, subreddits, toggleChipFilter, activeFilters }) {
     const classes = useStyles();
     const [subChips, setSubChips] = useState([]);
     const [searchFilter, setSearchFilter] = useState("");
 
     useEffect(() => {
-        const presort = Object.keys(subreddits).sort((x, y) => {
-            const countX = subreddits[x].length;
-            const countY = subreddits[y].length;
-            return countY - countX;
-        });
-
         const filteredBySearch = (input,  search) => {
             if(!search.length) {
                 return input; 
@@ -59,26 +54,22 @@ export default function SubChipIndex({ subreddits, toggleChipFilter, activeFilte
                 return searchRes;
             }
         };
-        
-        setSubChips(filteredBySearch(presort, searchFilter));;
+        setSubChips(filteredBySearch(chipArr, searchFilter));;
 
-    }, [subreddits, toggleChipFilter, searchFilter])
-
+    }, [chipArr, searchFilter])
 
     const renderChips = (subchips) => {
         return subchips.map((sub, idx) => {
           const linkArrLen = subreddits[sub].length;
           const isActive = activeFilters.includes(sub);
           return (
-            <Chip
+            <SubChip
               clickable
-              label={sub}
-              key={idx}
-              size="medium"
-              color={isActive ? "secondary" : "primary"}
-              count={linkArrLen}
-              onClick={() => toggleChipFilter(sub)}
-              avatar={<Avatar>{linkArrLen}</Avatar>}
+              sub={sub}
+              idx={idx}
+              isActive={isActive}
+              linkArrLen={linkArrLen}
+              toggleChipFilter={toggleChipFilter}
             />
           );
         });

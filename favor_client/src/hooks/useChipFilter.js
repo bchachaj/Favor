@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 export default function useChipFilter( savedItems ) {
-    const [filters, setFilters] = useState([]);
+    const [activeFilters, setActiveFilters] = useState([]);
     const [initState, setInitState] = useState([]);
 
     useEffect(() => {
@@ -10,22 +10,22 @@ export default function useChipFilter( savedItems ) {
     }, [savedItems]);
     
     const toggleChipFilter = (sub) => {
-        if (filters.includes(sub)) {
-            const updatedArr = filters.filter((el) => el !== sub);
-            setFilters(updatedArr);
+        if (activeFilters.includes(sub)) {
+            const updatedArr = activeFilters.filter((el) => el !== sub);
+            setActiveFilters(updatedArr);
         } else {
-            setFilters(filters => [...filters, sub]);
+            setActiveFilters(activeFilters => [...activeFilters, sub]);
         }
     };
     
     const chipFilteredState = () => {
-        if (filters.length === 0) return initState;
+        if (activeFilters.length === 0) return initState;
         return initState.filter((sub) => {
-            return filters.includes(sub.subreddit.display_name)
+            return activeFilters.includes(sub.subreddit.display_name)
         });
     }
 
-    return { filters, toggleChipFilter, chipFilteredState };
+    return { activeFilters, toggleChipFilter, chipFilteredState };
 
 }
 

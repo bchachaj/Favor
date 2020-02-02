@@ -62,37 +62,44 @@ export default function ContentDisplayPage({ savedItems, subreddits }) {
         return filteredByType;
     };
 
+    const sortedSubChipLabels = (subreddits) => {
+        return Object.keys(subreddits).sort((x, y) => {
+            const countX = subreddits[x].length;
+            const countY = subreddits[y].length;
+            return countY - countX;
+        });
+    };
+
     return (
-        <BackToTop>
-            <Navbar link="/analytics" linkLabel={"Visit Analytics Page"} />
+      <BackToTop>
+        <Navbar link="/analytics" linkLabel={"Visit Analytics Page"} />
 
-            <ExpansionPanel defaultExpanded={!isMobileView}>
-                <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                >
-                    <SettingsIcon />
-                    <Typography>Filters</Typography>
-
-                </ExpansionPanelSummary>
-                <Divider />
-                <ExpansionPanelDetails className={classes.root}>
-
-                    <SubChipIndex subreddits={subreddits}
-                        toggleChipFilter={toggleChipFilter}
-                        activeFilters={activeFilters} />
-
-                </ExpansionPanelDetails>
-                <ExpansionPanelDetails>
-                    <TypeFilterControl toggleComments={toggleComments}
-                        toggleSubs={toggleSubs}
-                        showComments={showComments}
-                        showSubs={showSubs} />
-                </ExpansionPanelDetails>
-
-            </ExpansionPanel>
-            <ExpandControl expanded={expanded} setExpanded={setExpanded} />
-            <ItemIndex items={filteredState()} expanded={expanded}/>
-        </BackToTop>
-    )
+        <ExpansionPanel defaultExpanded={!isMobileView}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <SettingsIcon />
+            <Typography>Filters</Typography>
+          </ExpansionPanelSummary>
+          <Divider />
+          <ExpansionPanelDetails className={classes.root}>
+            <SubChipIndex
+              chipArr={sortedSubChipLabels(subreddits)}
+              subreddits={subreddits}
+              toggleChipFilter={toggleChipFilter}
+              activeFilters={activeFilters}
+            />
+          </ExpansionPanelDetails>
+          <ExpansionPanelDetails>
+            <TypeFilterControl
+              toggleComments={toggleComments}
+              toggleSubs={toggleSubs}
+              showComments={showComments}
+              showSubs={showSubs}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpandControl expanded={expanded} setExpanded={setExpanded} />
+        <ItemIndex items={filteredState()} expanded={expanded} />
+      </BackToTop>
+    );
 }
 
