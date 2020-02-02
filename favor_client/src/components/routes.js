@@ -9,6 +9,7 @@ import SubAnalyticsPage from './pages/SubAnalyticsPage';
 const Routes = () => {
     const [savedItems, setSavedItems] = useState([]);
     const [subs, setSubs] = useState({});
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -16,6 +17,7 @@ const Routes = () => {
             setSavedItems(response);
             const subredditSelect = subredditSelector(response);
             setSubs(subredditSelect);
+            setIsLoaded(true);
         }
 
         fetchData();
@@ -24,7 +26,7 @@ const Routes = () => {
     return (
         <Switch>
             <Route path={'/analytics'}><SubAnalyticsPage savedItems={savedItems} subreddits={subs} /></Route>
-            <Route path={'/'}><ContentDisplayPage savedItems={savedItems} subreddits={subs} /></Route>
+            <Route path={'/'}><ContentDisplayPage savedItems={savedItems} subreddits={subs} isLoaded={isLoaded}/></Route>
         </Switch>
     )
 };

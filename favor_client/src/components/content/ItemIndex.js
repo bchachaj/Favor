@@ -31,7 +31,7 @@ export default function ItemIndex({ items, expanded }) {
 
     return (
         <div className="item_index_wrapper">
-            {generatedList.length > 0 ? listItem : "No Content to display"}
+            {listItem}
         </div>
     )
 }

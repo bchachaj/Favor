@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -11,6 +11,7 @@ import { makeStyles, withStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import BackToTop from './../shared/BackToTop';
+import Loader from './../shared/Loader';
 import Navbar from '../shared/navbar/Navbar';
 import ItemIndex from '../content/ItemIndex';
 import SubChipIndex from '../SubChipIndex';
@@ -31,12 +32,17 @@ const ExpansionPanelSummary = withStyles({
     },
 })(MuiExpansionPanelSummary);
 
-export default function ContentDisplayPage({ savedItems, subreddits }) {
+export default function ContentDisplayPage({ savedItems, subreddits, isLoaded }) {
     const classes = useStyles();
     const { activeFilters, toggleChipFilter, chipFilteredState } = useChipFilter(savedItems);
     const [showComments, setShowComments] = useState(true);
     const [showSubs, setShowSubs] = useState(true);
     const [expanded, setExpanded] = useState(false);
+    const [loadState, setLoadState] = useState(isLoaded);
+
+    useEffect(() => {
+        setLoadState(isLoaded);
+    }, [isLoaded])
 
     const theme = useTheme();
     const isMobileView = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });;
@@ -70,10 +76,29 @@ export default function ContentDisplayPage({ savedItems, subreddits }) {
         });
     };
 
+    const contentRender = (subs, type) => {
+        const haveItemsAvailable = Object.keys(subs).length > 0;
+        if (haveItemsAvailable) {
+          if (type === "itemIndex") {
+            return <ItemIndex items={filteredState()} expanded={expanded} />;
+          } else if (type === "subIndex") {
+            return (
+              <SubChipIndex
+                chipArr={sortedSubChipLabels(subs)}
+                subreddits={subs}
+                toggleChipFilter={toggleChipFilter}
+                activeFilters={activeFilters}
+              />
+            );
+          }
+        } else {
+          return "No data to display";
+        }
+    };
+
     return (
       <BackToTop>
         <Navbar link="/analytics" linkLabel={"Visit Analytics Page"} />
-
         <ExpansionPanel defaultExpanded={!isMobileView}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <SettingsIcon />
@@ -81,12 +106,7 @@ export default function ContentDisplayPage({ savedItems, subreddits }) {
           </ExpansionPanelSummary>
           <Divider />
           <ExpansionPanelDetails className={classes.root}>
-            <SubChipIndex
-              chipArr={sortedSubChipLabels(subreddits)}
-              subreddits={subreddits}
-              toggleChipFilter={toggleChipFilter}
-              activeFilters={activeFilters}
-            />
+            {loadState ? contentRender(subreddits, 'subIndex') : <Loader />}
           </ExpansionPanelDetails>
           <ExpansionPanelDetails>
             <TypeFilterControl
@@ -98,7 +118,7 @@ export default function ContentDisplayPage({ savedItems, subreddits }) {
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpandControl expanded={expanded} setExpanded={setExpanded} />
-        <ItemIndex items={filteredState()} expanded={expanded} />
+        {loadState ? contentRender(subreddits, 'itemIndex') : <Loader />}
       </BackToTop>
     );
 }

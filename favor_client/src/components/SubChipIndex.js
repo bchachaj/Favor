@@ -66,7 +66,7 @@ export default function SubChipIndex({ chipArr, subreddits, toggleChipFilter, ac
             <SubChip
               clickable
               sub={sub}
-              idx={idx}
+              key={idx}
               isActive={isActive}
               linkArrLen={linkArrLen}
               toggleChipFilter={toggleChipFilter}
