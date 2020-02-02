@@ -33,7 +33,7 @@ const ExpansionPanelSummary = withStyles({
 
 export default function ContentDisplayPage({ savedItems, subreddits }) {
     const classes = useStyles();
-    const { filters, toggleChipFilter, chipFilteredState } = useChipFilter(savedItems);
+    const { activeFilters, toggleChipFilter, chipFilteredState } = useChipFilter(savedItems);
     const [showComments, setShowComments] = useState(true);
     const [showSubs, setShowSubs] = useState(true);
     const [expanded, setExpanded] = useState(false);
@@ -79,7 +79,7 @@ export default function ContentDisplayPage({ savedItems, subreddits }) {
 
                     <SubChipIndex subreddits={subreddits}
                         toggleChipFilter={toggleChipFilter}
-                        filters={filters} />
+                        activeFilters={activeFilters} />
 
                 </ExpansionPanelDetails>
                 <ExpansionPanelDetails>
