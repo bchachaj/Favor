@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import Brightness4SharpIcon from '@material-ui/icons/Brightness4Sharp';
 import Brightness5TwoToneIcon from '@material-ui/icons/Brightness5TwoTone';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import { ThemeContext } from './../../../providers/Theme';
 
 export default function ThemeToggle() {
@@ -23,8 +24,14 @@ export default function ThemeToggle() {
     const inlineStyles = { border: '1px solid #1761a6', marginRight: '1%' }; 
 
     return (
-        <IconButton onClick={() => toggleTheme(themePref)} variant="outlined" style={inlineStyles}>
-            {toggleIcon(themePref)}
+      <Tooltip title="Toggle Theme">
+        <IconButton
+          onClick={() => toggleTheme(themePref)}
+          variant="outlined"
+          style={inlineStyles}
+        >
+          {toggleIcon(themePref)}
         </IconButton>
-    )
+      </Tooltip>
+    );
 }

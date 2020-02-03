@@ -17,7 +17,6 @@ const App = () => {
                     <BrowserRouter>
                         <Routes />
                     </BrowserRouter>
-                    <span className="site-credit">Built by <a href={'https://github.com/bchachaj'}>Ben</a></span>
                 </Container>
         </CustomThemeProvider>
     )

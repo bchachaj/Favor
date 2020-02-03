@@ -27,6 +27,9 @@ const useStyles = makeStyles({
         position: "absolute",
         top: "-120px",
         left: 0
+    }, 
+    videoPadding: {
+        paddingBottom: '56%'
     }
 });
 
@@ -49,6 +52,7 @@ const Submission = React.memo(({ item, expanded }) => {
     let submissionBody;
 
     const vRedditTemplate = (item) => {
+        if(item.removed_by_category === 'moderator') return <div>Removed by moderator</div>
         if(item.media === null) return; 
         return(<>
             <ReactPlayer controls width={'auto'} height={'auto'} url={item.media.reddit_video.fallback_url} /><br />
@@ -68,7 +72,7 @@ const Submission = React.memo(({ item, expanded }) => {
         // simple text
         submissionBody = ReactHTMLParser(item.selftext_html)
     } else if (isStreamable) {
-        submissionBody = <ReactPlayer controls width={'auto'} height={'auto'} url={item.url} />
+        submissionBody = <div className={classes.videoPadding}><ReactPlayer controls width={'auto'} height={'auto'} url={item.url} /></div>
     } else if (hasImgExtension) {
         submissionBody = imgTemplate(item);
     } else if (isHostedVid) {
@@ -76,6 +80,7 @@ const Submission = React.memo(({ item, expanded }) => {
     } else if (isGfycat) {
         submissionBody = <ReactPlayer controls width={'auto'} height={'auto'} url={item.preview.reddit_video_preview.fallback_url} />
     } else if (isVReddit) {
+        console.log(item)
         submissionBody = vRedditTemplate(item);
     } else {
         //simple link

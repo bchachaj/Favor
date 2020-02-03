@@ -36,21 +36,24 @@ export default function Navbar({ link, linkLabel }) {
     );
 
     return (
-        <>
-            <div className={classes.navBar}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <Typography className={classes.grow} variant="h6" noWrap>
-                            Favor
-                         </Typography>
-                        <ThemeToggle className={classes.menuButton}/>
-                        <Button variant="outlined" className={classes.menuButton} component={renderLink}>{linkLabel}</Button>
-                    </Toolbar>
-
-                
-                </AppBar>
-            </div>
-            <div className={classes.toolbar} id="back-to-top-anchor"></div>
-        </>
-    )
+      <>
+        <div className={classes.navBar}>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography className={classes.grow} variant="h6" noWrap>
+                Favor
+              </Typography>
+              <Button
+                variant="outlined"
+                className={classes.menuButton}
+                component={renderLink}
+              >
+                {linkLabel}
+              </Button>
+            </Toolbar>
+          </AppBar>
+        </div>
+        <div className={classes.toolbar} id="back-to-top-anchor"></div>
+      </>
+    );
 }
