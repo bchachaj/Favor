@@ -1,34 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-
 import ContentDisplayPage from './pages/ContentDisplayPage';
-import jsonFromLocalFile from './../utils/readSavedFile';
-import subredditSelector from './../utils/subredditSelector';
 import SubAnalyticsPage from './pages/SubAnalyticsPage';
 
+import useLocalData from './../hooks/useLocalData';
+
 const Routes = () => {
-    const [savedItems, setSavedItems] = useState([]);
-    const [subs, setSubs] = useState({});
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    useEffect(() => {
-        async function fetchData() {
-            const response = await jsonFromLocalFile();
-            setSavedItems(response);
-            const subredditSelect = subredditSelector(response);
-            setSubs(subredditSelect);
-            setIsLoaded(true);
-        }
-
-        fetchData();
-    }, [])
+    const { subs, savedItems, isLoaded } = useLocalData();
 
     return (
+      <>
         <Switch>
-            <Route path={'/analytics'}><SubAnalyticsPage savedItems={savedItems} subreddits={subs} /></Route>
-            <Route path={'/'}><ContentDisplayPage savedItems={savedItems} subreddits={subs} isLoaded={isLoaded}/></Route>
+          <Route path={"/analytics"}>
+            <SubAnalyticsPage savedItems={savedItems} subreddits={subs} />
+          </Route>
+          <Route path={"/"}>
+            <ContentDisplayPage
+              savedItems={savedItems}
+              subreddits={subs}
+              isLoaded={isLoaded}
+            />
+          </Route>
         </Switch>
-    )
+        <span className="site-credit" style={{ position: 'fixed', left: '10px ' }}>
+          Built by <a href={"https://github.com/bchachaj"}>Ben</a>
+        </span>
+      </>
+    );
 };
 
 export default Routes; 
