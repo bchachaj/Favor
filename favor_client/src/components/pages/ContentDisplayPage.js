@@ -56,8 +56,7 @@ export default function ContentDisplayPage({ savedItems, subreddits, isLoaded })
 
     const filteredState = () => {
         const filteredBySub = chipFilteredState();
-
-        const filteredByType = filteredBySub.filter((item) => {
+        const filteredStateByType = filteredBySub.filter((item) => {
             const filterByComment = item.hasOwnProperty('body') && showComments;
             const filterBySub = !item.hasOwnProperty('body') && showSubs;
 
@@ -65,7 +64,7 @@ export default function ContentDisplayPage({ savedItems, subreddits, isLoaded })
             if (filterBySub) return item;
         });
 
-        return filteredByType;
+        return filteredStateByType;
     };
 
     const sortedSubChipLabels = (subreddits) => {
@@ -76,7 +75,7 @@ export default function ContentDisplayPage({ savedItems, subreddits, isLoaded })
         });
     };
 
-    const contentRender = (subs, type) => {
+    const renderContentIfLoaded = (subs, type) => {
         const haveItemsAvailable = Object.keys(subs).length > 0;
         if (haveItemsAvailable) {
           if (type === "itemIndex") {
@@ -99,14 +98,14 @@ export default function ContentDisplayPage({ savedItems, subreddits, isLoaded })
     return (
       <BackToTop>
         <Navbar link="/analytics" linkLabel={"Visit Analytics Page"} />
-        <ExpansionPanel defaultExpanded={!isMobileView}>
+        <ExpansionPanel defaultExpanded={!isMobileView && subreddits.length > 80}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <SettingsIcon />
             <Typography>Filters</Typography>
           </ExpansionPanelSummary>
           <Divider />
           <ExpansionPanelDetails className={classes.root}>
-            {loadState ? contentRender(subreddits, 'subIndex') : <Loader />}
+            {loadState ? renderContentIfLoaded(subreddits, 'subIndex') : <Loader />}
           </ExpansionPanelDetails>
           <ExpansionPanelDetails>
             <TypeFilterControl
@@ -118,7 +117,7 @@ export default function ContentDisplayPage({ savedItems, subreddits, isLoaded })
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpandControl expanded={expanded} setExpanded={setExpanded} />
-        {loadState ? contentRender(subreddits, 'itemIndex') : <Loader />}
+        {loadState ? renderContentIfLoaded(subreddits, 'itemIndex') : <Loader />}
       </BackToTop>
     );
 }
